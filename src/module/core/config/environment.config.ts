@@ -4,6 +4,12 @@ export type EnvironmentConfig = {
   };
   jwt: {
     secret: string;
+    accessTokenExpiresIn: string;
+    refreshTokenExpiresIn: string;
+  };
+  redis: {
+    host: string;
+    port: number;
   };
 };
 
@@ -12,6 +18,8 @@ function validateEnvVariables(config: EnvironmentConfig) {
 
   if (!config.database.url) missingVariables.push('DATABASE_URL');
   if (!config.jwt.secret) missingVariables.push('JWT_SECRET');
+  if (!config.redis.host) missingVariables.push('REDIS_HOST');
+  if (!config.redis.port) missingVariables.push('REDIS_PORT');
 
   if (missingVariables.length > 0) {
     throw new Error(
@@ -33,6 +41,14 @@ export default (): EnvironmentConfig => {
     },
     jwt: {
       secret: getEnvVariable('JWT_SECRET', env),
+      accessTokenExpiresIn:
+        getEnvVariable('JWT_ACCESS_EXPIRES_IN', env) || '1d',
+      refreshTokenExpiresIn:
+        getEnvVariable('JWT_REFRESH_EXPIRES_IN', env) || '7d',
+    },
+    redis: {
+      host: getEnvVariable('REDIS_HOST', env),
+      port: Number(getEnvVariable('REDIS_PORT', env)) || 6379,
     },
   };
 
