@@ -35,8 +35,8 @@ export abstract class EntityClass<T> {
    * @param props - 엔티티의 속성
    * @param id - 엔티티의 식별자 (선택적)
    */
-  constructor(props: T, id: string | undefined) {
-    this._id = new UniqueEntityId(id);
+  constructor(props: T, id?: UniqueEntityId) {
+    this._id = id ? id : new UniqueEntityId(); // ID가 주어지지 않으면 새로 생성
     this.props = props;
   }
 
