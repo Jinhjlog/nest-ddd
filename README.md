@@ -154,14 +154,6 @@ Value Object는 사물의 특성을 추상화합니다.
 - 컬렉션과 유사한 인터페이스를 제공합니다
 - 인프라스트럭처 계층에서 구현합니다
 
-// 도메인 계층의 리포지토리 인터페이스
-export interface OrderRepository {
-findById(id: OrderId): Promise<Order | null>;
-save(order: Order): Promise<void>;
-remove(order: Order): Promise<void>;
-findByCustomerId(customerId: CustomerId): Promise<Order[]>;
-}
-
 ### 도메인 이벤트 (Domain Events)
 
 도메인 내에서 발생한 중요한 사건을 표현합니다:
