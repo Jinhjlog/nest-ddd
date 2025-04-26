@@ -2,6 +2,14 @@ import { UniqueEntityId } from '@lib/domain/UniqueEntityId';
 import { IDomainEvent } from './IDomainEvent';
 import { AggregateRoot } from '@lib/domain/AggregateRoot';
 
+// TODO:필요에 따라 Nestjs EventEmitter로 리팩토링 하는 것을 고려
+// 1. 성능 병목이 발견될 때: 프로파일링을 통해 현재 이벤트 시스템이 병목이 되는 것이 확인된 경우
+// 2. 비동기 처리가 복잡해질 때: 이벤트 핸들러의 비동기 처리가 늘어나고 복잡해지는 경우
+// 3. 시스템 확장 시: 애플리케이션이 성장하여 더 복잡한 이벤트 라우팅이 필요할 때
+// 4. 표준화가 필요할 때: 여러 개발자/팀이 참여하면서 NestJS 표준 패턴으로 통일이 필요해질 때
+
+// 실제 성능 이슈가 발견되지 않는 경우 이 구현을 계속 사용하는 것이 좋음
+
 /**
  * DomainEvents 클래스
  *
