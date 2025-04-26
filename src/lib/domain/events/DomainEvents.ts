@@ -106,6 +106,7 @@ export class DomainEvents {
     }
 
     this.handlersMap[eventClassName].push(callback);
+    console.log(`Registered event handler for ${eventClassName}`);
   }
 
   /**
@@ -132,10 +133,13 @@ export class DomainEvents {
 
     if (eventClassName in this.handlersMap) {
       const handlers = this.handlersMap[eventClassName];
+      console.log(`found ${handlers.length}`);
 
       for (const handler of handlers) {
         handler(event);
       }
+    } else {
+      console.log(`No handlers found for event: ${eventClassName}`);
     }
   }
 }

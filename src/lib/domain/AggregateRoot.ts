@@ -16,6 +16,7 @@ export abstract class AggregateRoot<T> extends EntityClass<T> {
     // 나중에 이벤트를 발행할 수 있도록 표시
     DomainEvents.markAggregateForDispatch(this);
     // 도메인 이벤트 로깅
+    console.log('Domain event added:', domainEvent);
   }
 
   public clearEvents(): void {

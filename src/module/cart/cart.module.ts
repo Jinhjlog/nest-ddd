@@ -5,10 +5,12 @@ import { CartRepository } from './domain/repositories/cart.repository';
 import { CartRepositoryImpl } from './infra/repositories/cart.repository.impl';
 import { ProductRefRepository } from './domain/repositories/product-ref.repository';
 import { ProductRefRepositoryImpl } from './infra/repositories/product-ref.repository.impl';
+import { CartEventHandler } from './application/handlers/cart-event.handler';
 
 @Module({
   controllers: [CartController],
   providers: [
+    CartEventHandler,
     CreateCartUseCase,
     {
       provide: CartRepository,

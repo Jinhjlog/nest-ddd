@@ -51,6 +51,7 @@ export class CreateCustomerUseCase {
       customer.addAddress(address);
     }
 
+    customer.create();
     await this.customerRepository.save(customer);
 
     return ok({

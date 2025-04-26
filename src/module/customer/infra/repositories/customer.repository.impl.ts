@@ -3,6 +3,7 @@ import { CustomerRepository } from '../../domain/repositories/customer.repositor
 import { PrismaService } from 'src/module/core/database/prisma.service';
 import { Customer, Email } from '../../domain/models';
 import { CustomerAddressMapper, CustomerMapper } from '../mappers';
+import { DomainEvents } from '@lib/domain/events/DomainEvents';
 
 @Injectable()
 export class CustomerRepositoryImpl implements CustomerRepository {
@@ -43,6 +44,8 @@ export class CustomerRepositoryImpl implements CustomerRepository {
         );
       }
     });
+
+    DomainEvents.dispatchEventsForAggregate(customer.id);
   }
 
   async existsEmail(email: Email): Promise<boolean> {
