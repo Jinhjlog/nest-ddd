@@ -32,8 +32,6 @@ model Product {
   
   categories ProductCategory[] @relation("ProductCategories")
 
-
-
   @@map("products")
 }
 
@@ -47,4 +45,24 @@ model ProductCategory {
   
 
   @@map("product_categories")
+}
+
+model Customer {
+  id        String  @id @map("customer_id") @db.Char(26)
+  name      String  @map("name") @db.VarChar(255)
+  email     String  @map("email") @db.VarChar(255) @unique(map: "email_UNIQUE")
+
+  addresses CustomerAddress[] @relation("CustomerAddresses")
+
+  @@map("customers")
+}
+
+model CustomerAddress {
+  id         String  @id @map("address_id") @db.Char(26)
+  customerId String  @map("customer_id") @db.Char(26)
+  address    String  @map("address") @db.VarChar(255)
+
+  customer   Customer  @relation("CustomerAddresses", fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@map("customer_addresses")
 }
