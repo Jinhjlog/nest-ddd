@@ -40,6 +40,10 @@ export abstract class EntityClass<T> {
     this.props = props;
   }
 
+  get id(): UniqueEntityId {
+    return this._id;
+  }
+
   /**
    * 두 엔티티가 동일한지 비교합니다.
    * 엔티티는 ID가 같으면 동일한 엔티티로 간주됩니다.

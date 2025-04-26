@@ -24,3 +24,27 @@ model User {
 
   @@map("users")
 }
+
+model Product {
+  id         String  @id @map("product_id") @db.Char(26)
+  name       String  @map("name") @db.VarChar(255)
+  price      Int     @map("price") @db.Int
+  
+  categories ProductCategory[] @relation("ProductCategories")
+
+
+
+  @@map("products")
+}
+
+model ProductCategory {
+  id          String   @id @map("category_id") @db.Char(26)
+  productId   String   @map("product_id") @db.Char(26)
+  name        String   @map("name") @db.VarChar(255)
+  description String?  @map("description") @db.VarChar(255)
+
+  product     Product @relation("ProductCategories", fields: [productId], references: [id], onDelete: Cascade)
+  
+
+  @@map("product_categories")
+}
