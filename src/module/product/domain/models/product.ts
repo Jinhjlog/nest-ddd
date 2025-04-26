@@ -1,10 +1,11 @@
 import { AggregateRoot, UniqueEntityId } from '@lib/domain';
 import { ProductCategory } from './product-category';
+import { Price } from './price';
 
 export class ProductProps {
   id?: string;
   name: string;
-  price: number;
+  price: Price;
   categories: ProductCategory[];
 }
 

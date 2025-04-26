@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateProductUseCase } from '../../application/usecases/create-product.usecase';
 import { CreateProductRequestDto, ProductResponseDto } from '../dtos';
@@ -17,9 +17,18 @@ export class ProductController {
     description: '상품이 성공적으로 생성되었습니다.',
     type: ProductResponseDto,
   })
-  createProduct(
+  async createProduct(
     @Body() dto: CreateProductRequestDto,
   ): Promise<ProductResponseDto> {
-    return this.createProductUseCase.execute(dto);
+    const result = await this.createProductUseCase.execute(dto);
+
+    return result.match(
+      (productResult) => {
+        return productResult;
+      },
+      (error) => {
+        throw new BadRequestException(error);
+      },
+    );
   }
 }

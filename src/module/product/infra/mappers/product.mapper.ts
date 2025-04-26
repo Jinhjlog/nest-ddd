@@ -1,5 +1,6 @@
 import { Product } from '@prisma/client';
 import {
+  Price,
   ProductCategory as ProductCategoryDomain,
   Product as ProductDomain,
 } from '../../domain/models';
@@ -12,7 +13,7 @@ export class ProductMapper {
     return new ProductDomain({
       id,
       name,
-      price,
+      price: Price.unsafeCreate(price),
       categories,
     });
   }
@@ -21,7 +22,7 @@ export class ProductMapper {
     return {
       id: id.toString(),
       name,
-      price,
+      price: price.props.value,
     };
   }
 }
