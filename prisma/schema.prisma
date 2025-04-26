@@ -53,6 +53,7 @@ model Customer {
   email     String  @map("email") @db.VarChar(255) @unique(map: "email_UNIQUE")
 
   addresses CustomerAddress[] @relation("CustomerAddresses")
+  cart      Cart?
 
   @@map("customers")
 }
@@ -65,4 +66,26 @@ model CustomerAddress {
   customer   Customer  @relation("CustomerAddresses", fields: [customerId], references: [id], onDelete: Cascade)
 
   @@map("customer_addresses")
+}
+
+model Cart {
+  id         String     @id @map("cart_id") @db.Char(26)
+  customerId String     @map("customer_id") @db.Char(26) @unique
+
+  items      CartItem[]
+  
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@map("carts")
+}
+
+model CartItem {
+  id        String  @id @map("cart_item_id") @db.Char(26)
+  cartId    String  @map("cart_id") @db.Char(26)
+  productId String  @map("product_id") @db.Char(26)
+  quantity  Int     @map("quantity") @db.Int
+  
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+
+  @@map("cart_items")
 }
