@@ -10,6 +10,5 @@ export interface CartItemDto {
 
 export interface CartDto {
   id: string;
-  customerId: string;
   items: CartItemDto[];
 }
